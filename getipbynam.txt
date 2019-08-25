@@ -1,0 +1,56 @@
+**FREE
+// -------------------------------------------------------------------------------
+//    Get IP Addr (in dotted format) from a given Host Name
+//                                                Author : Reynaldo Dandreb Medilla
+// -------------------------------------------------------------------------------
+Ctl-Opt Option(*SrcStmt : *NoDebugIO) DftActGrp(*NO) ActGrp(*New) BNDDIR('QC2LE');
+
+Dcl-pi *N;
+   pHostName char(100) const;
+   pIPAddr char(50);
+End-pi;
+
+Dcl-pr inet_addr uns(10:0) ExtProc(*dclcase);
+   iaAddrStr pointer value options(*string);
+End-pr;
+
+Dcl-pr inet_ntoa pointer ExtProc(*dclcase);
+   inInternetAddr uns(10) value;
+End-pr;
+
+Dcl-pr gethostbyname pointer ExtProc(*dclcase);
+   ghHostName pointer value options(*string);
+End-pr;
+
+Dcl-s p_HostEnt pointer;
+Dcl-ds HostEnt Based(p_HostEnt);
+   heName pointer;
+   heAliases pointer;
+   heAddrType int(10);
+   heLenght int(10);
+   heAddrList pointer;
+End-ds;
+Dcl-s p_AddrList pointer Based(heAddrList);
+Dcl-s wHost_Addr uns(10) Based(p_AddrList);
+
+Dcl-c INADDR_NONE const(4294967295);
+Dcl-s wIP uns(10);
+Dcl-s wMsg char(80);
+Dcl-s p_HostIP pointer;
+Dcl-s wHostIP char(50) Based(p_HostIP);
+
+   wIP = inet_addr( %trim(pHostName) );
+   If wIP = INADDR_NONE;
+      p_HostEnt = gethostbyname(%trim(pHostName));
+      If p_HostEnt = *NULL;
+         wMsg = 'Host Name cannot be found.';
+         Return;
+      Endif;
+      wIP = wHost_Addr;
+   Endif;
+
+   p_HostIP = inet_ntoa( wIP );
+   pIPAddr  = %str(p_HostIP);
+
+   Return;
+
