@@ -11,4 +11,4 @@ Parameters interface:
   
 Tech Note: i used ActGrp(*New) but if you think it might slow down your app, feel free to use other option.
 
-btw, thanks to Scott-Klement for his articles, without them this will be painful to do.
+btw, thanks to Scott-Klement for his articles, without it this won't be easy.
