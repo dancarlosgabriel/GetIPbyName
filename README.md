@@ -5,10 +5,10 @@ This utility might be useful for RPG/IBMi developers transitioning into moderniz
 
 Parameters interface:
 
-  pHostName - 100 char input parm expecting the Host Name, eg www.google.com
+  pHostName -- 100-char input parm - pass the Host Name to find IP address for eg www.google.com
   
-  pIPAddr - 50 char output parm to contain equivalent IP address (ie dotted form eg 123.456.789.0)
+  pIPAddr -- 50-char output parm to return the IP address (ie in dotted form eg 123.456.789.0)
   
 Tech Note: i used ActGrp(*New) but if you think it might slow down your app, feel free to use other option.
 
-btw, thanks to Scott-Klement for his articles, without it this won't be easy.
+BTW, thanks to Scott-Klement for his articles, it's been a useful reference.
